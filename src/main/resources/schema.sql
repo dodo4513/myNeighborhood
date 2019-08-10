@@ -1,7 +1,8 @@
 CREATE TABLE neighborhood
 (
   neighborhood_no BIGINT AUTO_INCREMENT PRIMARY KEY NOT NULL,
-  name            VARCHAR(100)                      NOT NULL
+  name            VARCHAR(100)                      NOT NULL,
+  view_count      LONG                              NOT NULL default 0
 );
 
 CREATE TABLE crawling_data
@@ -12,3 +13,5 @@ CREATE TABLE crawling_data
   measurement_date date                              NOT NULL,
   data             VARCHAR(50)                       NOT NULL,
 );
+
+-- TODO 1-1 neighborhood 에 view_count 추가

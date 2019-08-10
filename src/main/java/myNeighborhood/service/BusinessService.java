@@ -26,6 +26,10 @@ public class BusinessService {
 
   public String getNeighborhood(String neighborhoodName) {
     List<CrawlingData> crawlingData = updateNeighborhoodAndData(neighborhoodName);
+
+    // TODO 1-6 increseNeighborhoodViewCount 호출
+    increseNeighborhoodViewCount(neighborhoodName);
+
     return "내일 " + neighborhoodName + "의 온도는 " + getCrawlingData(crawlingData,
         CrawlingType.TEMPERATURE)
         + ", 미세먼지 지수는 " + getCrawlingData(crawlingData, CrawlingType.FINE_DUST) + " 입니다";
@@ -33,6 +37,10 @@ public class BusinessService {
 
   public String getNeighborhood(String neighborhoodName, CrawlingType types) {
     List<CrawlingData> crawlingData = updateNeighborhoodAndData(neighborhoodName);
+
+    // TODO 1-7 increseNeighborhoodViewCount 호출
+    increseNeighborhoodViewCount(neighborhoodName);
+
     return "내일 " + neighborhoodName + "의 " + types.getKeyword() + "은 " + getCrawlingData(
         crawlingData, types) + " 입니다.";
   }
@@ -70,5 +78,11 @@ public class BusinessService {
   private String getCrawlingData(List<CrawlingData> crawlingData, CrawlingType type) {
     return crawlingData.stream()
         .filter(d -> d.getCrawlingType() == type).findFirst().get().getData();
+  }
+
+  // TODO 1-5 view count +1 로직
+  private void increseNeighborhoodViewCount(String neighborhoodName) {
+    long viewCount = neighborhoodDao.selectViewCount(neighborhoodName);
+    neighborhoodDao.updateViewCount(neighborhoodName, viewCount + 1);
   }
 }
