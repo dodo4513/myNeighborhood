@@ -38,7 +38,7 @@ public class BusinessService {
   public String getNeighborhood(String neighborhoodName, CrawlingType types) {
     List<CrawlingData> crawlingData = updateNeighborhoodAndData(neighborhoodName);
 
-    // TODO 1-7 increaseNeighborhoodViewCount 호출
+    // TODO 1-7 increaseNeighborhoodViewCount 호출(여기까지 하고 잘 저장되나 테스트!)
     increaseNeighborhoodViewCount(neighborhoodName);
 
     return "내일 " + neighborhoodName + "의 " + types.getKeyword() + "은 " + getCrawlingData(
@@ -84,5 +84,11 @@ public class BusinessService {
   private void increaseNeighborhoodViewCount(String neighborhoodName) {
     long viewCount = neighborhoodDao.selectViewCount(neighborhoodName);
     neighborhoodDao.updateViewCount(neighborhoodName, viewCount + 1);
+  }
+
+  // TODO 1-8 view count 조회
+  public long getNeighborhoodViewCount(String neighborhoodName) {
+
+    return neighborhoodDao.selectViewCount(neighborhoodName);
   }
 }
