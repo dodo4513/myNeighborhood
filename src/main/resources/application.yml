@@ -9,4 +9,5 @@ mybatis:
   type-aliases-package: myNeighborhood.model
   configuration:
     map-underscore-to-camel-case: true
-
+server:
+  port: 8081

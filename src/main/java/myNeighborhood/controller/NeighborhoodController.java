@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import myNeighborhood.model.enums.CrawlingType;
 import myNeighborhood.service.BusinessService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -40,9 +39,4 @@ public class NeighborhoodController {
 
     return ResponseEntity.ok(true);
   }
-
-//  @ExceptionHandler(IllegalArgumentException.class)
-//  public ResponseEntity<?> catchIllegalArgumentException() {
-//    return ResponseEntity.noContent().build();
-//  }
 }

@@ -3,22 +3,13 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="myNeighborhood.repository.CrawlingDataDao">
-
-  <resultMap type="CrawlingData" id="CrawlingDataMap">
-    <result column="crawling_data_no" property="crawlingDataNo"/>
-    <result column="neighborhood_no" property="neighborhoodNo"/>
-    <result column="crawling_type" property="crawlingType"/>
-    <result column="measurement_date" property="measurementDate"/>
-    <result column="data" property="data"/>
-  </resultMap>
-
   <insert id="insertCrawlingData" parameterType="CrawlingData" useGeneratedKeys="true"
     keyProperty="crawlingDataNo">
     INSERT INTO crawling_data (neighborhood_no, measurement_date, crawling_type,data)
     VALUES (#{crawlingData.neighborhoodNo}, #{crawlingData.measurementDate}, #{crawlingData.crawlingType}, #{crawlingData.data});
   </insert>
 
-  <select id="selectCrawlingData" resultMap="CrawlingDataMap">
+  <select id="selectCrawlingData" resultType="CrawlingData">
     SELECT *
     FROM crawling_data
     WHERE measurement_date=#{measurementDate} and neighborhood_no = #{neighborhoodNo}
