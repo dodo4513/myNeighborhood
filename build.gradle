@@ -24,7 +24,6 @@ targetCompatibility = 1.8
 dependencies {
     compile 'org.springframework.boot:spring-boot-starter-web'
     testCompile 'org.springframework.boot:spring-boot-starter-test'
-
     compile 'org.springframework.boot:spring-boot-starter-thymeleaf'
 
     compile 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.0'

@@ -13,5 +13,3 @@ CREATE TABLE crawling_data
   measurement_date date                              NOT NULL,
   data             VARCHAR(50)                       NOT NULL,
 );
-
--- TODO 1-1 neighborhood 에 view_count 추가

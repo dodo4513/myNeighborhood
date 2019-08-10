@@ -15,7 +15,6 @@ public interface NeighborhoodDao {
 
   Neighborhood selectNeighborhood(String name);
 
-  // TODO 1-4 neighborhood view count 조회, 생성 메소드 생성
   void updateViewCount(@Param("name") String name, @Param("viewCount") long viewCount);
 
   long selectViewCount(String name);
