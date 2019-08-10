@@ -83,4 +83,11 @@ public class BusinessService {
     // long viewCount = neighborhoodDao.selectQQQQQ(neighborhoodName);
     // neighborhoodDao.updateHHHHH(neighborhoodName, viewCount + lll);
   }
+
+  // TODO 1-8 view count 조회
+  public long getNeighborhoodViewCount(String neighborhoodName) {
+
+    // return neighborhoodDao.selectQQQQQ(neighborhoodName);
+    return 0;
+  }
 }

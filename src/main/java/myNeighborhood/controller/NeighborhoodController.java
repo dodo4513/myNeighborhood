@@ -39,4 +39,11 @@ public class NeighborhoodController {
 
     return ResponseEntity.ok(true);
   }
+
+  // TODO 1-9 API endpoint 개발
+//  @GetMapping("ABCDEFGABCDEFG")
+//  public ResponseEntity<Long> getNeighborhoodViewCount(@PPPPPPPP String neighborhood) {
+//
+//    return ResponseEntity.ok(myService.getNeighborhoodViewCount(neighborhood));
+//  }
 }
