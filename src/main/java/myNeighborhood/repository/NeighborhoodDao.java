@@ -13,5 +13,5 @@ public interface NeighborhoodDao {
 
   void insertNeighborhood(@Param("neighborhood") Neighborhood neighborhood);
 
-  Neighborhood selectNeighborhood(String neighborhoodName);
+  Neighborhood selectNeighborhood(String name);
 }
