@@ -14,4 +14,19 @@
     FROM neighborhood
     WHERE name = #{name}
   </select>
+
+  <!-- TODO 1-2 SQL 구문 완성 (id:selectViewCount, resultType: Long) -->
+  <!--SELECT view_count-->
+  <!--FROM neighborhood-->
+  <!--WHERE name = #{name}-->
+
+
+  <!-- TODO 1-3 SQL 구문완성 (UPDATE id:updateViewCount) -->
+  <!--UPDATE neighborhood-->
+  <!--SET view_count = ${viewCount}-->
+  <!--WHERE name = #{name}-->
+
 </mapper>
+
+
+
