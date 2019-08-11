@@ -3,6 +3,7 @@ package myNeighborhood.controller;
 import lombok.RequiredArgsConstructor;
 import myNeighborhood.model.enums.CrawlingType;
 import myNeighborhood.service.BusinessService;
+import myNeighborhood.service.BusinessServiceImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,25 +18,25 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class NeighborhoodController {
 
-  private final BusinessService myService;
+  private final BusinessServiceImpl businessService; // TODO 2-6 전략 교체를 위해 무엇으로 바꿔야할까?
 
   @GetMapping("neighborhoods/{neighborhood}")
   public ResponseEntity<String> getNeighborhood(@PathVariable String neighborhood) {
 
-    return ResponseEntity.ok(myService.getNeighborhood(neighborhood));
+    return ResponseEntity.ok(businessService.getNeighborhood(neighborhood));
   }
 
   @GetMapping("neighborhoods/{neighborhood}/request-types/{types}")
   public ResponseEntity<String> getNeighborhood(@PathVariable String neighborhood,
       @PathVariable CrawlingType types) {
 
-    return ResponseEntity.ok(myService.getNeighborhood(neighborhood, types));
+    return ResponseEntity.ok(businessService.getNeighborhood(neighborhood, types));
   }
 
   @PostMapping("neighborhoods/{neighborhood}/update")
   public ResponseEntity<Boolean> updateNeighborhood(@PathVariable String neighborhood) {
 
-    myService.updateNeighborhoodAndData(neighborhood);
+    businessService.updateNeighborhoodAndData(neighborhood);
 
     return ResponseEntity.ok(true);
   }
@@ -43,6 +44,6 @@ public class NeighborhoodController {
   @GetMapping("neighborhoods/{neighborhood}/view-count")
   public ResponseEntity<Long> getNeighborhoodViewCount(@PathVariable String neighborhood) {
 
-    return ResponseEntity.ok(myService.getNeighborhoodViewCount(neighborhood));
+    return ResponseEntity.ok(businessService.getNeighborhoodViewCount(neighborhood));
   }
 }
