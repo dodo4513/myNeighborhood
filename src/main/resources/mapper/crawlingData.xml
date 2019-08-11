@@ -5,7 +5,7 @@
 <mapper namespace="myNeighborhood.repository.CrawlingDataDao">
   <insert id="insertCrawlingData" parameterType="CrawlingData" useGeneratedKeys="true"
     keyProperty="crawlingDataNo">
-    INSERT INTO crawling_data (neighborhood_no, measurement_date, crawling_type,data)
+    INSERT INTO crawling_data (neighborhood_no, measurement_date, crawling_type, data)
     VALUES (#{crawlingData.neighborhoodNo}, #{crawlingData.measurementDate}, #{crawlingData.crawlingType}, #{crawlingData.data});
   </insert>
 
