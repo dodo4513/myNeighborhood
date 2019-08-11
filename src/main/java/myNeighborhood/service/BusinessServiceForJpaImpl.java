@@ -21,8 +21,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-@Primary // TODO 2-9
-public class BusinessServiceForJpaImpl implements BusinessService { // TODO 2-8 BusinessService 상속
+@Primary // TODO 2-10
+public class BusinessServiceForJpaImpl implements BusinessService { // TODO 2-9 BusinessService 상속
 
   private final NaverCrawlingService naverCrawlingService;
   private final NeighborhoodDao neighborhoodDao;
@@ -56,6 +56,7 @@ public class BusinessServiceForJpaImpl implements BusinessService { // TODO 2-8 
       neighborhoodDao.insertNeighborhood(neighborhood);
     }
 
+    // TODO 2-11 jpa 교체 대상
     List<CrawlingData> crawlingData = crawlingDataRepository
         .findCrawlingDataByMeasurementDateAndNeighborhoodNo(
             LocalDate.now(), neighborhood.getNeighborhoodNo());
@@ -70,6 +71,8 @@ public class BusinessServiceForJpaImpl implements BusinessService { // TODO 2-8 
         if (cd.getData().equals(Strings.EMPTY)) {
           throw new IllegalArgumentException();
         }
+
+        // TODO 2-13 jpa 교체 대상
         crawlingDataRepository.save(cd);
         crawlingData.add(cd);
       }

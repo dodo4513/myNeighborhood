@@ -18,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-public class BusinessServiceImpl implements BusinessService { // TODO 2-7 BusinessService 을 상속
+public class BusinessServiceImpl implements BusinessService { // TODO 2-8 BusinessService 을 상속
 
   private final NaverCrawlingService naverCrawlingService;
   private final NeighborhoodDao neighborhoodDao;
