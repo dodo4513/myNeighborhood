@@ -19,8 +19,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-// @AAA TODO 2-9
-public class BusinessServiceForJpaImpl implements BusinessService { // TODO 2-8 BusinessService 상속
+// @AAA TODO 2-10
+public class BusinessServiceForJpaImpl implements BusinessService { // TODO 2-9 BusinessService 상속
 
   private final NaverCrawlingService naverCrawlingService;
   private final NeighborhoodDao neighborhoodDao;
@@ -54,7 +54,7 @@ public class BusinessServiceForJpaImpl implements BusinessService { // TODO 2-8 
       neighborhoodDao.insertNeighborhood(neighborhood);
     }
 
-    // TODO 2-10 jpa 교체 대상
+    // TODO 2-11 jpa 교체 대상
     List<CrawlingData> crawlingData = crawlingDataDao
         .selectCrawlingData(LocalDate.now(), neighborhood.getNeighborhoodNo());
     if (crawlingData.size() == 0) {
@@ -69,7 +69,7 @@ public class BusinessServiceForJpaImpl implements BusinessService { // TODO 2-8 
           throw new IllegalArgumentException();
         }
 
-        // TODO 2-11 jpa 교체 대상
+        // TODO 2-13 jpa 교체 대상
         crawlingDataDao.insertCrawlingData(cd);
         crawlingData.add(cd);
       }

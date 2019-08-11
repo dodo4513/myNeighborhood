@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class NeighborhoodController {
 
-  private final BusinessServiceImpl businessService; // TODO 2-6 전략 교체를 위해 무엇으로 바꿔야할까?
+  private final BusinessServiceImpl businessService; // TODO 2-7 전략 교체를 위해 무엇으로 바꿔야할까?
 
   @GetMapping("neighborhoods/{neighborhood}")
   public ResponseEntity<String> getNeighborhood(@PathVariable String neighborhood) {

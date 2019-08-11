@@ -8,7 +8,7 @@ import myNeighborhood.model.entity.CrawlingData;
  * @author doyoung hwang on 2019-08-10
  */
 
-// TODO 2-4 JpaRepository 만들기
+// TODO 2-5 JpaRepository 만들기
 public interface CrawlingDataRepository { // extends AAA<BBB, CCC> {
 
 
