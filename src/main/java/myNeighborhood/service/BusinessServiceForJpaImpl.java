@@ -6,7 +6,6 @@ import lombok.RequiredArgsConstructor;
 import myNeighborhood.model.entity.CrawlingData;
 import myNeighborhood.model.entity.Neighborhood;
 import myNeighborhood.model.enums.CrawlingType;
-import myNeighborhood.repository.CrawlingDataRepository;
 import myNeighborhood.repository.NeighborhoodRepository;
 import myNeighborhood.repository.NeighborhoodRepository.ViewCount;
 import org.apache.logging.log4j.util.Strings;
@@ -24,62 +23,62 @@ import org.springframework.transaction.annotation.Transactional;
 public class BusinessServiceForJpaImpl implements BusinessService {
 
   private final NaverCrawlingService naverCrawlingService;
-  private final CrawlingDataRepository crawlingDataRepository;
   private final NeighborhoodRepository neighborhoodRepository;
 
   @Transactional
   public String getNeighborhood(String neighborhoodName) {
-    List<CrawlingData> crawlingData = updateNeighborhoodAndData(neighborhoodName);
+    Neighborhood neighborhood = updateNeighborhoodAndData(neighborhoodName);
 
     increaseNeighborhoodViewCount(neighborhoodName);
 
-    return "내일 " + neighborhoodName + "의 온도는 " + getCrawlingData(crawlingData,
+    // TODO 2-2 조회 정보도 함께 보여주자!
+    return "내일 " + neighborhoodName + "의 온도는 " + getCrawlingData(neighborhood.getCrawlingDataList(),
         CrawlingType.TEMPERATURE)
-        + ", 미세먼지 지수는 " + getCrawlingData(crawlingData, CrawlingType.FINE_DUST) + " 입니다";
+        + ", 미세먼지 지수는 " + getCrawlingData(neighborhood.getCrawlingDataList(),
+        CrawlingType.FINE_DUST) + " 입니다. 총 " + neighborhood.getViewCount() + "번 조회됐어요.";
   }
 
   @Transactional
   public String getNeighborhood(String neighborhoodName, CrawlingType types) {
-    List<CrawlingData> crawlingData = updateNeighborhoodAndData(neighborhoodName);
+    Neighborhood neighborhood = updateNeighborhoodAndData(neighborhoodName);
 
     increaseNeighborhoodViewCount(neighborhoodName);
 
     return "내일 " + neighborhoodName + "의 " + types.getKeyword() + "은 " + getCrawlingData(
-        crawlingData, types) + " 입니다.";
+        neighborhood.getCrawlingDataList(), types) + " 입니다. 총 " + neighborhood.getViewCount()
+        + "번 조회됐어요.";
   }
 
   @Transactional
-  public List<CrawlingData> updateNeighborhoodAndData(String neighborhoodName) {
+  public Neighborhood updateNeighborhoodAndData(String neighborhoodName) {
+    // TODO 2-3 return type 바꿔야겠지?
 
     Neighborhood neighborhood = neighborhoodRepository.findByName(neighborhoodName);
     if (neighborhood == null) {
       neighborhood = new Neighborhood();
       neighborhood.setName(neighborhoodName);
 
-      neighborhoodRepository.save(neighborhood);
-    }
+      // TODO 2-4 여기서 먼저 저장하면 안되고 crawlingData도 함께 저장하자
 
-    List<CrawlingData> crawlingData = crawlingDataRepository
-        .findCrawlingDataByMeasurementDateAndNeighborhoodNo(
-            LocalDate.now(), neighborhood.getNeighborhoodNo());
-    if (crawlingData.size() == 0) {
-      long neighborhoodNo = neighborhood.getNeighborhoodNo();
       for (CrawlingType type : CrawlingType.values()) {
         CrawlingData cd = new CrawlingData();
-        cd.setNeighborhoodNo(neighborhoodNo);
+        cd.setNeighborhoodNo(neighborhood.getNeighborhoodNo());
         cd.setMeasurementDate(LocalDate.now());
         cd.setCrawlingType(type);
         cd.setData(naverCrawlingService.crawling(neighborhoodName, type));
+
         if (cd.getData().equals(Strings.EMPTY)) {
           throw new IllegalArgumentException();
         }
 
-        crawlingDataRepository.save(cd);
-        crawlingData.add(cd);
+        // TODO 2-5 crawlingData를 따로 저장할 필요가 사라진다.
+        neighborhood.getCrawlingDataList().add(cd);
       }
     }
 
-    return crawlingData;
+    neighborhoodRepository.save(neighborhood);
+
+    return neighborhood;
   }
 
   private String getCrawlingData(List<CrawlingData> crawlingData, CrawlingType type) {

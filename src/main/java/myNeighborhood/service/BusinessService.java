@@ -1,7 +1,5 @@
 package myNeighborhood.service;
 
-import java.util.List;
-import myNeighborhood.model.entity.CrawlingData;
 import myNeighborhood.model.enums.CrawlingType;
 
 /**
@@ -14,7 +12,7 @@ public interface BusinessService {
 
   String getNeighborhood(String neighborhoodName, CrawlingType types);
 
-  List<CrawlingData> updateNeighborhoodAndData(String neighborhoodName);
+  Object updateNeighborhoodAndData(String neighborhoodName);
 
   long getNeighborhoodViewCount(String neighborhoodName);
 }
