@@ -7,11 +7,11 @@ import myNeighborhood.model.entity.CrawlingData;
 import myNeighborhood.model.entity.Neighborhood;
 import myNeighborhood.model.enums.CrawlingType;
 import myNeighborhood.repository.CrawlingDataRepository;
-import myNeighborhood.repository.NeighborhoodDao;
+import myNeighborhood.repository.NeighborhoodRepository;
+import myNeighborhood.repository.NeighborhoodRepository.ViewCount;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -24,9 +24,10 @@ import org.springframework.transaction.annotation.Transactional;
 public class BusinessServiceForJpaImpl implements BusinessService {
 
   private final NaverCrawlingService naverCrawlingService;
-  private final NeighborhoodDao neighborhoodDao;
   private final CrawlingDataRepository crawlingDataRepository;
+  private final NeighborhoodRepository neighborhoodRepository;
 
+  @Transactional
   public String getNeighborhood(String neighborhoodName) {
     List<CrawlingData> crawlingData = updateNeighborhoodAndData(neighborhoodName);
 
@@ -37,6 +38,7 @@ public class BusinessServiceForJpaImpl implements BusinessService {
         + ", 미세먼지 지수는 " + getCrawlingData(crawlingData, CrawlingType.FINE_DUST) + " 입니다";
   }
 
+  @Transactional
   public String getNeighborhood(String neighborhoodName, CrawlingType types) {
     List<CrawlingData> crawlingData = updateNeighborhoodAndData(neighborhoodName);
 
@@ -46,13 +48,17 @@ public class BusinessServiceForJpaImpl implements BusinessService {
         crawlingData, types) + " 입니다.";
   }
 
-  @Transactional(isolation = Isolation.DEFAULT)
+  @Transactional
   public List<CrawlingData> updateNeighborhoodAndData(String neighborhoodName) {
-    Neighborhood neighborhood = neighborhoodDao.selectNeighborhood(neighborhoodName);
+
+    // TODO 1-5 JPA로 변경
+    Neighborhood neighborhood = neighborhoodRepository.findByName(neighborhoodName);
     if (neighborhood == null) {
       neighborhood = new Neighborhood();
       neighborhood.setName(neighborhoodName);
-      neighborhoodDao.insertNeighborhood(neighborhood);
+
+      // TODO 1-6 JPA로 변경
+      neighborhoodRepository.save(neighborhood);
     }
 
     List<CrawlingData> crawlingData = crawlingDataRepository
@@ -84,13 +90,23 @@ public class BusinessServiceForJpaImpl implements BusinessService {
   }
 
   private void increaseNeighborhoodViewCount(String neighborhoodName) {
+    // TODO 1-6 JPA로 변경
+    // TODO 1-7 update 쿼리는 어떻게(자동 변경 감지), 그리고 언제 commit 될까?(쓰기 지연)
+    // TODO 1-8 AOP와 Transaction
+    Neighborhood neighborhood = neighborhoodRepository.findByName(neighborhoodName);
 
-    long viewCount = neighborhoodDao.selectViewCount(neighborhoodName);
-    neighborhoodDao.updateViewCount(neighborhoodName, viewCount + 1);
+    neighborhood.increaseViewCount();
   }
 
   public long getNeighborhoodViewCount(String neighborhoodName) {
 
-    return neighborhoodDao.selectViewCount(neighborhoodName);
+    // TODO 1-9 특정 컬럼만 가져오기
+    ViewCount viewCount = neighborhoodRepository.findFirstByName(neighborhoodName);
+
+    if (viewCount != null) {
+      return viewCount.getViewCount();
+    }
+
+    return 0;
   }
 }
