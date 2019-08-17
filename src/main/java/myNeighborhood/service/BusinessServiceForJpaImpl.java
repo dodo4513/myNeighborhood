@@ -3,7 +3,6 @@ package myNeighborhood.service;
 import java.time.LocalDate;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
 import myNeighborhood.model.entity.CrawlingData;
 import myNeighborhood.model.entity.Neighborhood;
 import myNeighborhood.model.enums.CrawlingType;
@@ -21,8 +20,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-@Primary // TODO 2-10
-public class BusinessServiceForJpaImpl implements BusinessService { // TODO 2-9 BusinessService 상속
+@Primary
+public class BusinessServiceForJpaImpl implements BusinessService {
 
   private final NaverCrawlingService naverCrawlingService;
   private final NeighborhoodDao neighborhoodDao;
@@ -56,7 +55,6 @@ public class BusinessServiceForJpaImpl implements BusinessService { // TODO 2-9 
       neighborhoodDao.insertNeighborhood(neighborhood);
     }
 
-    // TODO 2-11 jpa 교체 대상
     List<CrawlingData> crawlingData = crawlingDataRepository
         .findCrawlingDataByMeasurementDateAndNeighborhoodNo(
             LocalDate.now(), neighborhood.getNeighborhoodNo());
@@ -72,7 +70,6 @@ public class BusinessServiceForJpaImpl implements BusinessService { // TODO 2-9 
           throw new IllegalArgumentException();
         }
 
-        // TODO 2-13 jpa 교체 대상
         crawlingDataRepository.save(cd);
         crawlingData.add(cd);
       }

@@ -15,6 +15,7 @@ public interface CrawlingDataDao {
 
   void insertCrawlingData(@Param("crawlingData") CrawlingData crawlingData);
 
-  List<CrawlingData> selectCrawlingData(@Param("measurementDate") LocalDate measurementDate, @Param("neighborhoodNo") long neighborhoodNo);
+  List<CrawlingData> selectCrawlingData(@Param("measurementDate") LocalDate measurementDate,
+      @Param("neighborhoodNo") long neighborhoodNo);
 
 }

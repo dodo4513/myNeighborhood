@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class NeighborhoodController {
 
-  private final BusinessService businessService; // TODO 2-7 interface 로 변경
+  private final BusinessService businessService;
 
   @GetMapping("neighborhoods/{neighborhood}")
   public ResponseEntity<String> getNeighborhood(@PathVariable String neighborhood) {

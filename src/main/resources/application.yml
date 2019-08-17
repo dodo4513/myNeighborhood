@@ -10,7 +10,7 @@ spring:
     password:
   jpa:
     hibernate:
-      ddl-auto: none # TODO 2-4 ddl-auto (schema.sql 이 없어도 될까?)
+      ddl-auto: none
 mybatis:
   mapper-locations: classpath*:mapper/**/*.xml
   type-aliases-package: myNeighborhood.model

@@ -16,11 +16,10 @@ import org.apache.ibatis.type.Alias;
 
 @Getter
 @Setter
-@Entity // TODO 2-2 JPA의 엔티티 객체를 의미
+@Entity
 @Alias("CrawlingData")
 public class CrawlingData {
 
-  // TODO 2-3 #1 키 타입이 누구인지 지정해주고 #2 키 생성 규칙을 선언
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long crawlingDataNo;
