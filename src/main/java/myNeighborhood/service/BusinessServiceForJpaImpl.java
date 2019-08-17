@@ -33,6 +33,7 @@ public class BusinessServiceForJpaImpl implements BusinessService {
 
     increaseNeighborhoodViewCount(neighborhoodName);
 
+    // TODO 2-2 조회 정보도 함께 보여주자!
     return "내일 " + neighborhoodName + "의 온도는 " + getCrawlingData(crawlingData,
         CrawlingType.TEMPERATURE)
         + ", 미세먼지 지수는 " + getCrawlingData(crawlingData, CrawlingType.FINE_DUST) + " 입니다";
@@ -50,12 +51,14 @@ public class BusinessServiceForJpaImpl implements BusinessService {
 
   @Transactional
   public List<CrawlingData> updateNeighborhoodAndData(String neighborhoodName) {
+    // TODO 2-3 return type 바꿔야겠지?
 
     Neighborhood neighborhood = neighborhoodRepository.findByName(neighborhoodName);
     if (neighborhood == null) {
       neighborhood = new Neighborhood();
       neighborhood.setName(neighborhoodName);
 
+      // TODO 2-4 여기서 먼저 저장하면 안되고 crawlingData도 함께 저장하자
       neighborhoodRepository.save(neighborhood);
     }
 
@@ -74,6 +77,7 @@ public class BusinessServiceForJpaImpl implements BusinessService {
           throw new IllegalArgumentException();
         }
 
+        // TODO 2-5 crawlingData를 따로 저장할 필요가 사라진다.
         crawlingDataRepository.save(cd);
         crawlingData.add(cd);
       }

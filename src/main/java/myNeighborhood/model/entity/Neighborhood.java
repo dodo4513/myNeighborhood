@@ -29,4 +29,9 @@ public class Neighborhood {
   public void increaseViewCount() {
     viewCount++;
   }
+
+  // TODO 2-1 단방향 추가
+  // @XXXToYYYY(cascade = CascadeType.ALL)
+  // @JoinColumn(name = "neighborhoodNo")
+  // List<XXXXX> crawlingDataList = new ArrayList<>();
 }
