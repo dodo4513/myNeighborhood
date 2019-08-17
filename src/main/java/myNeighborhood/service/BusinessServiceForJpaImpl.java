@@ -27,7 +27,7 @@ public class BusinessServiceForJpaImpl implements BusinessService {
 
   private final NeighborhoodDao neighborhoodDao; // FIXME!!!
 
-//  @Txxxxxxxxxxx
+  //  @Txxxxxxxxxxx
   public String getNeighborhood(String neighborhoodName) {
     List<CrawlingData> crawlingData = updateNeighborhoodAndData(neighborhoodName);
 
@@ -38,7 +38,7 @@ public class BusinessServiceForJpaImpl implements BusinessService {
         + ", 미세먼지 지수는 " + getCrawlingData(crawlingData, CrawlingType.FINE_DUST) + " 입니다";
   }
 
-//  @Txxxxxxxxxxx
+  //  @Txxxxxxxxxxx
   public String getNeighborhood(String neighborhoodName, CrawlingType types) {
     List<CrawlingData> crawlingData = updateNeighborhoodAndData(neighborhoodName);
 
@@ -53,7 +53,6 @@ public class BusinessServiceForJpaImpl implements BusinessService {
 
     // TODO 1-5 JPA로 변경
     Neighborhood neighborhood = neighborhoodDao.selectNeighborhood(neighborhoodName);
-
 
     if (neighborhood == null) {
       neighborhood = new Neighborhood();

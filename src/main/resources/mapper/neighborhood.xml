@@ -21,7 +21,7 @@
     WHERE name = #{name}
   </select>
 
-  <update id="updateViewCount" >
+  <update id="updateViewCount">
     UPDATE neighborhood
     SET view_count = ${viewCount}
     WHERE name = #{name}
