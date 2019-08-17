@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Param;
  * @author doyoung hwang on 2019-08-04
  */
 
+@Deprecated
 @Mapper
 public interface NeighborhoodDao {
 

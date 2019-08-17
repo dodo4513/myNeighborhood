@@ -11,7 +11,6 @@ import myNeighborhood.repository.NeighborhoodDao;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -24,9 +23,11 @@ import org.springframework.transaction.annotation.Transactional;
 public class BusinessServiceForJpaImpl implements BusinessService {
 
   private final NaverCrawlingService naverCrawlingService;
-  private final NeighborhoodDao neighborhoodDao;
   private final CrawlingDataRepository crawlingDataRepository;
 
+  private final NeighborhoodDao neighborhoodDao; // FIXME!!!
+
+//  @Txxxxxxxxxxx
   public String getNeighborhood(String neighborhoodName) {
     List<CrawlingData> crawlingData = updateNeighborhoodAndData(neighborhoodName);
 
@@ -37,6 +38,7 @@ public class BusinessServiceForJpaImpl implements BusinessService {
         + ", 미세먼지 지수는 " + getCrawlingData(crawlingData, CrawlingType.FINE_DUST) + " 입니다";
   }
 
+//  @Txxxxxxxxxxx
   public String getNeighborhood(String neighborhoodName, CrawlingType types) {
     List<CrawlingData> crawlingData = updateNeighborhoodAndData(neighborhoodName);
 
@@ -46,12 +48,18 @@ public class BusinessServiceForJpaImpl implements BusinessService {
         crawlingData, types) + " 입니다.";
   }
 
-  @Transactional(isolation = Isolation.DEFAULT)
+  @Transactional
   public List<CrawlingData> updateNeighborhoodAndData(String neighborhoodName) {
+
+    // TODO 1-5 JPA로 변경
     Neighborhood neighborhood = neighborhoodDao.selectNeighborhood(neighborhoodName);
+
+
     if (neighborhood == null) {
       neighborhood = new Neighborhood();
       neighborhood.setName(neighborhoodName);
+
+      // TODO 1-6 JPA로 변경
       neighborhoodDao.insertNeighborhood(neighborhood);
     }
 
@@ -85,12 +93,16 @@ public class BusinessServiceForJpaImpl implements BusinessService {
 
   private void increaseNeighborhoodViewCount(String neighborhoodName) {
 
+    // TODO 1-6 JPA로 변경
+    // TODO 1-7 update 쿼리는 어떻게(자동 변경 감지), 그리고 언제 commit 될까?(쓰기 지연)
+    // TODO 1-8 AOP와 Transaction
     long viewCount = neighborhoodDao.selectViewCount(neighborhoodName);
     neighborhoodDao.updateViewCount(neighborhoodName, viewCount + 1);
   }
 
   public long getNeighborhoodViewCount(String neighborhoodName) {
 
+    // TODO 1-9 특정 컬럼만 가져오기
     return neighborhoodDao.selectViewCount(neighborhoodName);
   }
 }
