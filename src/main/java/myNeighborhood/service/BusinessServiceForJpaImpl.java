@@ -51,13 +51,11 @@ public class BusinessServiceForJpaImpl implements BusinessService {
   @Transactional
   public List<CrawlingData> updateNeighborhoodAndData(String neighborhoodName) {
 
-    // TODO 1-5 JPA로 변경
     Neighborhood neighborhood = neighborhoodRepository.findByName(neighborhoodName);
     if (neighborhood == null) {
       neighborhood = new Neighborhood();
       neighborhood.setName(neighborhoodName);
 
-      // TODO 1-6 JPA로 변경
       neighborhoodRepository.save(neighborhood);
     }
 
@@ -90,17 +88,12 @@ public class BusinessServiceForJpaImpl implements BusinessService {
   }
 
   private void increaseNeighborhoodViewCount(String neighborhoodName) {
-    // TODO 1-6 JPA로 변경
-    // TODO 1-7 update 쿼리는 어떻게(자동 변경 감지), 그리고 언제 commit 될까?(쓰기 지연)
-    // TODO 1-8 AOP와 Transaction
     Neighborhood neighborhood = neighborhoodRepository.findByName(neighborhoodName);
 
     neighborhood.increaseViewCount();
   }
 
   public long getNeighborhoodViewCount(String neighborhoodName) {
-
-    // TODO 1-9 특정 컬럼만 가져오기
     ViewCount viewCount = neighborhoodRepository.findFirstByName(neighborhoodName);
 
     if (viewCount != null) {

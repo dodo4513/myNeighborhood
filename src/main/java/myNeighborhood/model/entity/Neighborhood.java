@@ -14,17 +14,16 @@ import org.apache.ibatis.type.Alias;
 
 @Getter
 @Setter
-@Entity // TODO 1-1 JPA의 Entity
+@Entity
 @Alias("Neighborhood")
 public class Neighborhood {
 
-  @Id // TODO 1-2 Key 설정
+  @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long neighborhoodNo;
 
   private String name;
 
-  // TODO 1-3 view count 추가
   private long viewCount;
 
   public void increaseViewCount() {
