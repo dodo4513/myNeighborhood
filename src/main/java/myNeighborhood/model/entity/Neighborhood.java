@@ -31,12 +31,11 @@ public class Neighborhood {
 
   private long viewCount;
 
-  public void increaseViewCount() {
-    viewCount++;
-  }
-
-  // TODO 2-1 단방향 추가
   @OneToMany(cascade = CascadeType.ALL)
   @JoinColumn(name = "neighborhoodNo")
   List<CrawlingData> crawlingDataList = new ArrayList<>();
+
+  public void increaseViewCount() {
+    viewCount++;
+  }
 }
