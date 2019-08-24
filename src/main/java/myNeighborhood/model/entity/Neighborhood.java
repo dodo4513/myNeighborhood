@@ -32,7 +32,6 @@ public class Neighborhood {
 
   private long viewCount;
 
-  // TODO 1-2 FetchType: Lazy vs Eager
   @OneToMany(cascade = CascadeType.ALL)
   @JoinColumn(name = "neighborhoodNo")
   List<CrawlingData> crawlingDataList = new ArrayList<>();
