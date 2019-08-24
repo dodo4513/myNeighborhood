@@ -27,6 +27,7 @@ public class BusinessServiceForJpaImpl implements BusinessService {
 
   @Transactional
   public String getNeighborhood(String neighborhoodName) {
+    // TODO 1-1 이 곳에 debug point!
     Neighborhood neighborhood = updateNeighborhoodAndData(neighborhoodName);
 
     increaseNeighborhoodViewCount(neighborhoodName);
