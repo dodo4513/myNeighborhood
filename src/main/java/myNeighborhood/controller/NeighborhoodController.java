@@ -1,5 +1,7 @@
 package myNeighborhood.controller;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import myNeighborhood.model.enums.CrawlingType;
 import myNeighborhood.service.BusinessService;
@@ -13,12 +15,14 @@ import org.springframework.web.bind.annotation.RestController;
  * @author doyoung hwang on 2019-08-04
  */
 
+@Api(tags = "Main")
 @RestController
 @RequiredArgsConstructor
 public class NeighborhoodController {
 
   private final BusinessService businessService;
 
+  @ApiOperation(value = "Check server health", notes = "If it is normal, it returns 'HelloService'")
   @GetMapping("neighborhoods/{neighborhood}")
   public ResponseEntity<String> getNeighborhood(@PathVariable String neighborhood) {
 
