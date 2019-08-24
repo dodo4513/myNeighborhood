@@ -8,6 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 
 @SpringBootApplication
+@EnableAAAAAABBBBBCCCCC // TODO 1-4 해당 application은 AOP를 사용하겠다 선언
 public class Application {
 
   public static void main(String[] args) {

@@ -1,7 +1,10 @@
 package myNeighborhood.service;
 
 import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import myNeighborhood.model.entity.CrawlingData;
 import myNeighborhood.model.entity.Neighborhood;
@@ -31,20 +34,21 @@ public class BusinessServiceForJpaImpl implements BusinessService {
 
     increaseNeighborhoodViewCount(neighborhoodName);
 
-    return "내일 " + neighborhoodName + "의 온도는 " + getCrawlingData(neighborhood.getCrawlingDataList(),
-        CrawlingType.TEMPERATURE)
-        + ", 미세먼지 지수는 " + getCrawlingData(neighborhood.getCrawlingDataList(),
-        CrawlingType.FINE_DUST) + " 입니다. 총 " + neighborhood.getViewCount() + "번 조회됐어요.";
+    // TODO 1-12 반영
+    return "내일 " + neighborhoodName + "의 " + getCrawlingData(neighborhood.getCrawlingDataList(),
+        Arrays.asList(CrawlingType.values())) + " 입니다. 총 " + neighborhood.getViewCount()
+        + "번 조회됐어요.";
   }
 
   @Transactional
-  public String getNeighborhood(String neighborhoodName, CrawlingType types) {
+  public String getNeighborhood(String neighborhoodName, CrawlingType type) {
     Neighborhood neighborhood = updateNeighborhoodAndData(neighborhoodName);
 
     increaseNeighborhoodViewCount(neighborhoodName);
 
-    return "내일 " + neighborhoodName + "의 " + types.getKeyword() + "은 " + getCrawlingData(
-        neighborhood.getCrawlingDataList(), types) + " 입니다. 총 " + neighborhood.getViewCount()
+    // TODO 1-12 반영
+    return "내일 " + neighborhoodName + "의 " + getCrawlingData(neighborhood.getCrawlingDataList(),
+        Collections.singletonList(type)) + " 입니다. 총 " + neighborhood.getViewCount()
         + "번 조회됐어요.";
   }
 
@@ -69,15 +73,20 @@ public class BusinessServiceForJpaImpl implements BusinessService {
 
         neighborhood.getCrawlingDataList().add(cd);
       }
+
       neighborhoodRepository.save(neighborhood);
     }
 
     return neighborhood;
   }
 
-  private String getCrawlingData(List<CrawlingData> crawlingData, CrawlingType type) {
+  private String getCrawlingData(List<CrawlingData> crawlingData, List<CrawlingType> types) {
+
+    // TODO 1-11 기존 단건 조회를 다건 조회로 변경
     return crawlingData.stream()
-        .filter(d -> d.getCrawlingType() == type).findFirst().get().getData();
+        .filter(d -> types.contains(d.getCrawlingType()))
+        .map(CrawlingData::getData)
+        .collect(Collectors.joining(", "));
   }
 
   private void increaseNeighborhoodViewCount(String neighborhoodName) {

@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import lombok.Getter;
 import lombok.Setter;
+import myNeighborhood.aspect.DataPhrase;
 import myNeighborhood.model.enums.CrawlingType;
 import org.apache.ibatis.type.Alias;
 
@@ -30,5 +31,8 @@ public class CrawlingData {
 
   private LocalDate measurementDate;
 
+
+  // TODO 1-6 변경할 대상에 어노테이션을 붙임.
+  @AAAAAAAAAA
   private String data;
 }
