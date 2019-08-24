@@ -69,9 +69,8 @@ public class BusinessServiceForJpaImpl implements BusinessService {
 
         neighborhood.getCrawlingDataList().add(cd);
       }
+      neighborhoodRepository.save(neighborhood);
     }
-
-    neighborhoodRepository.save(neighborhood);
 
     return neighborhood;
   }
